@@ -61,6 +61,11 @@ public class AlertGroupMapperTest {
     UserAlertGroupMapper userAlertGroupMapper;
 
 
+    @Test
+    public void contextLoads() {
+        alertGroupMapper.queryAllGroupList();
+    }
+
     /**
      * test insert
      */
