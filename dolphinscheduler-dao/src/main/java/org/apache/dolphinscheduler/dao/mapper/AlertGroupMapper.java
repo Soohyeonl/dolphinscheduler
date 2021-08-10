@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * alertgroup mapper interface
  */
-@Mapper
 public interface AlertGroupMapper extends BaseMapper<AlertGroup> {
 
 

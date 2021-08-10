@@ -1,0 +1,34 @@
+type Query {
+    # AlertGroup Query
+    queryAllGroupList: AlertGroupListResultType
+    queryAlertGroupListPaging(pageNo: Int!, pageSize: Int!, searchVal: String): QueryAlertGroupListPagingResultType
+    verifyGroupName(groupName: String!): NormalResultType
+
+    # AccessToken Query
+    generateToken(loginUser: InputUser!, userId: Int!, expireTime: String!): NormalResultType
+    queryAccessTokenList(loginUser: InputUser!, pageNo: Int!, searchVal: String, pageSize: Int!): QueryAccessTokenListResultType
+    countTaskStateByProject(loginUser: InputUser!, startDate: String, endDate: String, projectId: Int = 0): NormalResultType
+}
+
+type Mutation {
+    # AlertGroup Mutation
+    createAlertGroup(groupName: String!, groupType: AlertType!, description: String): NormalResultType
+    delAlertGroupById(id: ID!): NormalResultType
+    grantUser(alertGroupId: Int!, id: Int!, userIds: String!): NormalResultType
+    updateAlertGroup(groupName: String!, groupType: AlertType!, id: Int!, description: String): NormalResultType
+
+    # AccessToken Mutation
+    createToken(loginUser: InputUser!, userId: Int!, expireTime: String!, token: String!): NormalResultType
+    delAccessTokenById(loginUser: InputUser!, id: Int!): NormalResultType
+    updateToken(loginUser: InputUser!, id: Int!, userId: Int!, expireTime: String!, token: String!): NormalResultType
+}
+
+input InputUser {
+    id: ID!
+    userType: UserType
+}
+
+enum UserType {
+    ADMIN_USER
+    GENERAL_USER
+}

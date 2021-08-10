@@ -1,0 +1,6 @@
+query verify {
+    queryAllGroupList {
+        id
+        description
+    }
+}

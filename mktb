@@ -1,1 +1,28 @@
 mktb-branch
+
+"projects": {
+    "AlertGroupGraphQL": {
+      "schemaPath": "AlertGroup.graphql",
+      "endpoints": {
+        "Default GraphQL Endpoint": {
+          "url": "http://localhost:8081/graphql/alertGroup",
+          "headers": {
+            "user-agent": "JS GraphQL"
+          },
+          "introspect": false
+        }
+      }
+    },
+    "AccessTokenGraphQL": {
+      "schemaPath": "AccessToken.graphql",
+      "endpoints": {
+        "Default GraphQL Endpoint": {
+          "url": "http://localhost:8081/graphql/accessToken",
+          "headers": {
+            "user-agent": "JS GraphQL"
+          },
+          "introspect": false
+        }
+      }
+    }
+  },

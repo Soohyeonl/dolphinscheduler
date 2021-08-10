@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  */
-@Service
+//@Service
 public class UserAlertGroupService extends ServiceImpl<UserAlertGroupMapper, UserAlertGroup> {
 
     @Autowired
