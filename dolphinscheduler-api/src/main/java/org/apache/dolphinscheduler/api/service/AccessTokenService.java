@@ -37,7 +37,7 @@ import java.util.*;
 /**
  * user service
  */
-//@Service
+@Service
 public class AccessTokenService extends BaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenService.class);

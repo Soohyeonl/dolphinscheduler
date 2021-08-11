@@ -33,9 +33,9 @@ type QueryAlertGroupListPagingResultType {
 }
 
 type AlertGroupPageInfo {
-    lists: [AlertGroup]
-    totalCount: Int
-    totalPage: Int
+    totalLists: [AlertGroup]
+    total: Int
     currentPage: Int
+    totalPage: Int
 }
 

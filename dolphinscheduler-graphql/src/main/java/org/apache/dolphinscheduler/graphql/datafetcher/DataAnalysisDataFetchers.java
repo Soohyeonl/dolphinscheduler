@@ -29,14 +29,11 @@ public class DataAnalysisDataFetchers extends BaseController {
     public DataFetcher<Result> dataFetchersQueryTypeCountTaskStateByProject() {
         return dataFetchingEnvironment -> {
             LinkedHashMap<String, String> loginUserMap = dataFetchingEnvironment.getArgument("loginUser");
-
             Result selectUserResult = userArgumentService.getUserFromArgument(loginUserMap);
-
             if (selectUserResult.getCode() != Status.SUCCESS.getCode()) {
                 logger.error("user not exist,  user id {}", loginUserMap.get("id"));
                 return selectUserResult;
             }
-
             User loginUser = (User) selectUserResult.getData();
 
             String startDate = dataFetchingEnvironment.getArgument("startDate");
@@ -44,6 +41,86 @@ public class DataAnalysisDataFetchers extends BaseController {
             int projectId = dataFetchingEnvironment.getArgument("projectId");
 
             Map<String, Object> result = dataAnalysisService.countTaskStateByProject(loginUser, projectId, startDate, endDate);
+            return returnDataList(result);
+        };
+    }
+
+    public DataFetcher<Result> dataFetchersQueryTypeCountProcessInstanceState() {
+        return dataFetchingEnvironment -> {
+            LinkedHashMap<String, String> loginUserMap = dataFetchingEnvironment.getArgument("loginUser");
+            Result selectUserResult = userArgumentService.getUserFromArgument(loginUserMap);
+            if (selectUserResult.getCode() != Status.SUCCESS.getCode()) {
+                logger.error("user not exist,  user id {}", loginUserMap.get("id"));
+                return selectUserResult;
+            }
+            User loginUser = (User) selectUserResult.getData();
+
+            String startDate = dataFetchingEnvironment.getArgument("startDate");
+            String endDate = dataFetchingEnvironment.getArgument("endDate");
+            int projectId = dataFetchingEnvironment.getArgument("projectId");
+
+            logger.info("count process instance state, user:{}, start date: {}, end date:{}, project id:{}",
+                    loginUser.getUserName(), startDate, endDate, projectId);
+            Map<String, Object> result = dataAnalysisService.countProcessInstanceStateByProject(loginUser, projectId, startDate, endDate);
+            return returnDataList(result);
+        };
+    }
+
+    public DataFetcher<Result> dataFetchersCountDefinitionByUser() {
+        return dataFetchingEnvironment -> {
+            LinkedHashMap<String, String> loginUserMap = dataFetchingEnvironment.getArgument("loginUser");
+            Result selectUserResult = userArgumentService.getUserFromArgument(loginUserMap);
+            if (selectUserResult.getCode() != Status.SUCCESS.getCode()) {
+                logger.error("user not exist,  user id {}", loginUserMap.get("id"));
+                return selectUserResult;
+            }
+            User loginUser = (User) selectUserResult.getData();
+
+            int projectId = dataFetchingEnvironment.getArgument("projectId");
+
+            logger.info("count process definition , user:{}, project id:{}",
+                    loginUser.getUserName(), projectId);
+            Map<String, Object> result = dataAnalysisService.countDefinitionByUser(loginUser, projectId);
+            return returnDataList(result);
+        };
+    }
+
+    public DataFetcher<Result> dataFetchersQueryTypeCountCommandState() {
+        return dataFetchingEnvironment -> {
+            LinkedHashMap<String, String> loginUserMap = dataFetchingEnvironment.getArgument("loginUser");
+            Result selectUserResult = userArgumentService.getUserFromArgument(loginUserMap);
+            if (selectUserResult.getCode() != Status.SUCCESS.getCode()) {
+                logger.error("user not exist,  user id {}", loginUserMap.get("id"));
+                return selectUserResult;
+            }
+            User loginUser = (User) selectUserResult.getData();
+
+            String startDate = dataFetchingEnvironment.getArgument("startDate");
+            String endDate = dataFetchingEnvironment.getArgument("endDate");
+            int projectId = dataFetchingEnvironment.getArgument("projectId");
+
+            logger.info("count command state, user:{}, start date: {}, end date:{}, project id {}",
+                    loginUser.getUserName(), startDate, endDate, projectId);
+            Map<String, Object> result = dataAnalysisService.countCommandState(loginUser, projectId, startDate, endDate);
+            return returnDataList(result);
+        };
+    }
+
+    public DataFetcher<Result> dataFetchersQueryTypeCountQueueState() {
+        return dataFetchingEnvironment -> {
+            LinkedHashMap<String, String> loginUserMap = dataFetchingEnvironment.getArgument("loginUser");
+            Result selectUserResult = userArgumentService.getUserFromArgument(loginUserMap);
+            if (selectUserResult.getCode() != Status.SUCCESS.getCode()) {
+                logger.error("user not exist,  user id {}", loginUserMap.get("id"));
+                return selectUserResult;
+            }
+            User loginUser = (User) selectUserResult.getData();
+
+            int projectId = dataFetchingEnvironment.getArgument("projectId");
+
+            logger.info("count command state, user:{}, project id {}",
+                    loginUser.getUserName(), projectId);
+            Map<String, Object> result = dataAnalysisService.countQueueState(loginUser, projectId);
             return returnDataList(result);
         };
     }

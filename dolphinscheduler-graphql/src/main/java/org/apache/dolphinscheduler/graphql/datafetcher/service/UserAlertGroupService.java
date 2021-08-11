@@ -5,6 +5,6 @@ import org.apache.dolphinscheduler.dao.entity.UserAlertGroup;
 import org.apache.dolphinscheduler.dao.mapper.UserAlertGroupMapper;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class UserAlertGroupService extends ServiceImpl<UserAlertGroupMapper, UserAlertGroup> {
 }

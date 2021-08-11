@@ -4,9 +4,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.TypeRuntimeWiring;
 import org.apache.dolphinscheduler.api.utils.PageInfo;
 import org.apache.dolphinscheduler.dao.entity.AlertGroup;
-import org.apache.dolphinscheduler.graphql.datafetcher.AccessTokenDataFetchers;
-import org.apache.dolphinscheduler.graphql.datafetcher.AlertGroupDataFetchers;
-import org.apache.dolphinscheduler.graphql.datafetcher.DataAnalysisDataFetchers;
+import org.apache.dolphinscheduler.graphql.datafetcher.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +20,18 @@ public class GraphQLWiring {
     @Autowired
     private DataAnalysisDataFetchers dataAnalysisDataFetchers;
 
+    @Autowired
+    private AlertGroupPageInfoDataFetchers alertGroupPageInfoDataFetchers;
+
+    @Autowired
+    private CountQueueStateMapTypeDataFetchers countQueueStateMapTypeDataFetchers;
+
     protected RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 // Wiring every GraphQL type
                 .type("Query", this::addWiringForQueryType)
                 .type("Mutation", this::addWiringForMutationType)
+                .type("AlertGroupPageInfo", this::addWiringForAlertGroupPageInfo)
                 .build();
     } // buildWiring()
 
@@ -43,6 +48,10 @@ public class GraphQLWiring {
 
         // DataAnalysis GraphQL Query
         typeWiring.dataFetcher("countTaskStateByProject", dataAnalysisDataFetchers.dataFetchersQueryTypeCountTaskStateByProject());
+        typeWiring.dataFetcher("countProcessInstanceState", dataAnalysisDataFetchers.dataFetchersQueryTypeCountProcessInstanceState());
+        typeWiring.dataFetcher("countDefinitionByUser", dataAnalysisDataFetchers.dataFetchersCountDefinitionByUser());
+        typeWiring.dataFetcher("countCommandState", dataAnalysisDataFetchers.dataFetchersQueryTypeCountCommandState());
+        typeWiring.dataFetcher("countQueueState", dataAnalysisDataFetchers.dataFetchersQueryTypeCountQueueState());
 
         return typeWiring;
     }
@@ -69,6 +78,11 @@ public class GraphQLWiring {
             PageInfo<AlertGroup> pageInfo = environment.getSource();
             return pageInfo.getTotalCount();
         });
+        return typeWiring;
+    }
+
+    protected TypeRuntimeWiring.Builder addWiringForAlertGroupPageInfo(TypeRuntimeWiring.Builder typeWiring) {
+        typeWiring.dataFetcher("totalLists", alertGroupPageInfoDataFetchers.dataFetchersTotalLists());
         return typeWiring;
     }
 

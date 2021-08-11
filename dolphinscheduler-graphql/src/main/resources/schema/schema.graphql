@@ -1,21 +1,28 @@
 type Query {
     # AlertGroup Query
-    queryAllGroupList: AlertGroupListResultType
-    queryAlertGroupListPaging(pageNo: Int!, pageSize: Int!, searchVal: String): QueryAlertGroupListPagingResultType
-    verifyGroupName(groupName: String!): NormalResultType
+    queryAllGroupList(loginUser: InputUser!): AlertGroupListResultType
+    queryAlertGroupListPaging(loginUser: InputUser!, pageNo: Int!, pageSize: Int!, searchVal: String): QueryAlertGroupListPagingResultType
+    verifyGroupName(loginUser: InputUser!, groupName: String!): NormalResultType
 
     # AccessToken Query
     generateToken(loginUser: InputUser!, userId: Int!, expireTime: String!): NormalResultType
     queryAccessTokenList(loginUser: InputUser!, pageNo: Int!, searchVal: String, pageSize: Int!): QueryAccessTokenListResultType
-    countTaskStateByProject(loginUser: InputUser!, startDate: String, endDate: String, projectId: Int = 0): NormalResultType
+
+    # DataAnalysis Query
+    countTaskStateByProject(loginUser: InputUser!, startDate: String, endDate: String, projectId: Int = 0): TaskCountDtoResultType
+    countProcessInstanceState(loginUser: InputUser!, startDate: String, endDate: String, projectId: Int = 0): TaskCountDtoResultType
+    countDefinitionByUser(loginUser: InputUser!, projectId: Int = 0): DefineUserDtoResultType
+    countCommandState(loginUser: InputUser!, startDate: String, endDate: String, projectId: Int = 0): CommandStateCountResultType
+    countQueueState(loginUser: InputUser!, projectId: Int = 0): CountQueueStateResultType
+
 }
 
 type Mutation {
     # AlertGroup Mutation
-    createAlertGroup(groupName: String!, groupType: AlertType!, description: String): NormalResultType
-    delAlertGroupById(id: ID!): NormalResultType
-    grantUser(alertGroupId: Int!, id: Int!, userIds: String!): NormalResultType
-    updateAlertGroup(groupName: String!, groupType: AlertType!, id: Int!, description: String): NormalResultType
+    createAlertGroup(loginUser: InputUser!, groupName: String!, groupType: AlertType!, description: String): NormalResultType
+    delAlertGroupById(loginUser: InputUser!, id: ID!): NormalResultType
+    grantUser(loginUser: InputUser!, alertGroupId: Int!, userIds: String!): NormalResultType
+    updateAlertGroup(loginUser: InputUser!, groupName: String!, groupType: AlertType!, id: Int!, description: String): NormalResultType
 
     # AccessToken Mutation
     createToken(loginUser: InputUser!, userId: Int!, expireTime: String!, token: String!): NormalResultType

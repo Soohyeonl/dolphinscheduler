@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * alert group service
  */
-//@Service
+@Service
 public class AlertGroupService extends BaseService{
 
     private static final Logger logger = LoggerFactory.getLogger(AlertGroupService.class);

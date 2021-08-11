@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-@Service
+//@Service
 public class AccessTokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenService.class);

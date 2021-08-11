@@ -1,6 +1,10 @@
 query verify {
-    queryAllGroupList {
-        id
-        description
+    countQueueState(loginUser: {id: "1"}) {
+        code
+        msg
+        data {
+            taskKill
+            taskQueue
+        }
     }
 }
