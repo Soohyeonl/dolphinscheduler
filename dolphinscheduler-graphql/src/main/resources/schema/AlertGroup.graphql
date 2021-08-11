@@ -33,7 +33,7 @@ type QueryAlertGroupListPagingResultType {
 }
 
 type AlertGroupPageInfo {
-    totalLists: [AlertGroup]
+    totalList: [AlertGroup]
     total: Int
     currentPage: Int
     totalPage: Int

@@ -32,6 +32,9 @@ public class GraphQLProvider {
     @Value("classpath:schema/DataAnalysis.graphql")
     Resource dataAnalysisResource;
 
+    @Value("classpath:schema/DataSource.graphql")
+    Resource dataSourceResource;
+
     private GraphQL graphQL;
 
     @Autowired
@@ -52,6 +55,7 @@ public class GraphQLProvider {
         File alertGroupFile = alertGroupResource.getFile();
         File accessTokenFile = accessTokenResource.getFile();
         File dataAnalysisFile = dataAnalysisResource.getFile();
+        File dataSourceFile = dataSourceResource.getFile();
 
         // parse schema
         TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
@@ -60,6 +64,7 @@ public class GraphQLProvider {
         typeRegistry.merge(schemaParser.parse(alertGroupFile));
         typeRegistry.merge(schemaParser.parse(accessTokenFile));
         typeRegistry.merge(schemaParser.parse(dataAnalysisFile));
+        typeRegistry.merge(schemaParser.parse(dataSourceFile));
 
         RuntimeWiring wiring = graphQLWiring.buildWiring();
         GraphQLSchema schema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);

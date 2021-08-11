@@ -1,7 +1,6 @@
 package org.apache.dolphinscheduler.graphql.datafetcher;
 
 import graphql.schema.DataFetcher;
-import org.apache.dolphinscheduler.api.controller.BaseController;
 import org.apache.dolphinscheduler.api.enums.Status;
 import org.apache.dolphinscheduler.api.utils.Result;
 import org.apache.dolphinscheduler.common.Constants;
@@ -20,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-public class AccessTokenDataFetchers extends BaseController {
+public class AccessTokenDataFetchers extends BaseDataFetchers {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenDataFetchers.class);
 

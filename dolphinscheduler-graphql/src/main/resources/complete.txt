@@ -1,0 +1,8 @@
+DataSource
+    connectDataSource
+    connectionTest
+    deleteDataSource
+    verifyDataSourceName
+    unauthDatasource
+    authedDatasource
+    getKerberosStartupState

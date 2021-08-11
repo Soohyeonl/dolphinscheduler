@@ -21,17 +21,16 @@ public class GraphQLWiring {
     private DataAnalysisDataFetchers dataAnalysisDataFetchers;
 
     @Autowired
-    private AlertGroupPageInfoDataFetchers alertGroupPageInfoDataFetchers;
+    private DataSourceDataFetchers dataSourceDataFetchers;
 
-    @Autowired
-    private CountQueueStateMapTypeDataFetchers countQueueStateMapTypeDataFetchers;
 
     protected RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 // Wiring every GraphQL type
                 .type("Query", this::addWiringForQueryType)
                 .type("Mutation", this::addWiringForMutationType)
-                .type("AlertGroupPageInfo", this::addWiringForAlertGroupPageInfo)
+                .type("QueryDataSourceType", this::addWiringForQueryDataSourceType)
+                .type("DataSource", this::addWiringForDataSource)
                 .build();
     } // buildWiring()
 
@@ -53,6 +52,17 @@ public class GraphQLWiring {
         typeWiring.dataFetcher("countCommandState", dataAnalysisDataFetchers.dataFetchersQueryTypeCountCommandState());
         typeWiring.dataFetcher("countQueueState", dataAnalysisDataFetchers.dataFetchersQueryTypeCountQueueState());
 
+        // DataSource GraphQL Query
+        typeWiring.dataFetcher("queryDataSource", dataSourceDataFetchers.dataFetchersQueryTypeQueryDataSource());
+        typeWiring.dataFetcher("queryDataSourceList", dataSourceDataFetchers.dataFetchersQueryTypeQueryDataSourceList());
+        typeWiring.dataFetcher("queryDataSourceListPaging", dataSourceDataFetchers.dataFetchersQueryTypeQueryDataSourceListPaging());
+        typeWiring.dataFetcher("connectDataSource", dataSourceDataFetchers.dataFetchersQueryTypeConnectDataSource());
+        typeWiring.dataFetcher("connectionTest", dataSourceDataFetchers.dataFetchersQueryTypeConnectionTest());
+        typeWiring.dataFetcher("verifyDataSourceName", dataSourceDataFetchers.dataFetchersQueryTypeVerifyDataSourceName());
+        typeWiring.dataFetcher("unauthDatasource", dataSourceDataFetchers.dataFetchersQueryTypeUnauthDatasource());
+        typeWiring.dataFetcher("authedDatasource", dataSourceDataFetchers.dataFetchersQueryTypeAuthedDatasource());
+        typeWiring.dataFetcher("getKerberosStartupState", dataSourceDataFetchers.dataFetchersQueryTypeGetKerberosStartupState());
+
         return typeWiring;
     }
 
@@ -69,6 +79,11 @@ public class GraphQLWiring {
         typeWiring.dataFetcher("delAccessTokenById", accessTokenDataFetchers.dataFetchersMutationTypeDelAccessTokenById());
         typeWiring.dataFetcher("updateToken", accessTokenDataFetchers.dataFetchersMutationTypeUpdateToken());
 
+        // DataSource GraphQL Mutation
+        typeWiring.dataFetcher("createDataSource", dataSourceDataFetchers.dataFetchersMutationTypeCreateDataSource());
+        typeWiring.dataFetcher("updateDataSource", dataSourceDataFetchers.dataFetchersMutationTypeUpdateDataSource());
+        typeWiring.dataFetcher("deleteDataSource", dataSourceDataFetchers.dataFetchersMutationTypeDeleteDataSource());
+
         return typeWiring;
     }
 
@@ -81,8 +96,13 @@ public class GraphQLWiring {
         return typeWiring;
     }
 
-    protected TypeRuntimeWiring.Builder addWiringForAlertGroupPageInfo(TypeRuntimeWiring.Builder typeWiring) {
-        typeWiring.dataFetcher("totalLists", alertGroupPageInfoDataFetchers.dataFetchersTotalLists());
+    protected TypeRuntimeWiring.Builder addWiringForDataSource(TypeRuntimeWiring.Builder typeWiring) {
+        typeWiring.dataFetcher("dbType", dataSourceDataFetchers.dataFetchersDataSourceTypeDbType());
+        return typeWiring;
+    }
+
+    protected TypeRuntimeWiring.Builder addWiringForQueryDataSourceType(TypeRuntimeWiring.Builder typeWiring) {
+        typeWiring.dataFetcher("dbType", dataSourceDataFetchers.dataFetchersQueryDataSourceTypeDbType());
         return typeWiring;
     }
 

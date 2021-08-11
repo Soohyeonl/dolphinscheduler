@@ -8,7 +8,7 @@ type AccessToken {
 }
 
 type AccessTokenPageInfo {
-    lists: [AccessToken]
+    totalList: [AccessToken]
     totalCount: Int
     totalPage: Int
     currentPage: Int
