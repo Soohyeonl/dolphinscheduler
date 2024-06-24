@@ -138,7 +138,7 @@ public class AlertGroupController extends BaseController {
      *
      * @param loginUser   login user
      * @param id          alert group id
-     * @param groupName   group name
+     * @param groupName   group nameSESSION_USER
      * @param groupType   group type
      * @param description description
      * @return update result code

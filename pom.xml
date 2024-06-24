@@ -351,7 +351,6 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -1035,6 +1034,7 @@
         <module>dolphinscheduler-remote</module>
         <module>dolphinscheduler-service</module>
         <module>dolphinscheduler-plugin-api</module>
+        <module>dolphinscheduler-graphql</module>
         <module>ext/skywalking</module>
     </modules>
 </project>
